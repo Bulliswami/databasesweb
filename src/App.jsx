@@ -7,6 +7,7 @@ import { Dropdown } from 'primereact/dropdown';
 import Loader from './ProgressSpinner';
 import Execute from "./graphql/getQuestions";
 import { AutoQuery, ClgQuery, Check } from "./graphql/getValues";
+import "./App.css";
 import { Paginator } from "primereact/paginator";
 function App() {
   const [questions, setQuestions] = useState([]);
@@ -70,7 +71,11 @@ function App() {
       <Dropdown value={selectedDomain} options={domains} onChange={onDomainChange} optionLabel="name" placeholder="Select a Domain" />
       {
         loading ? < Loader></Loader> :
-          propQuestions.map((ele, id) => <Question update={(updatedQuestion) => Accomodate(updatedQuestion)} key={id} propertyName={ele.propertyName} propertyQuestion={ele.propertyQuestion} allowedValues={ele.allowedValues} displayOrder={ele.displayorder} displayType={ele.propertyDisplayType}></Question>)
+          <div className='fle'>
+            {
+              propQuestions.map((ele, id) => <Question update={(updatedQuestion) => Accomodate(updatedQuestion)} key={id} propertyName={ele.propertyName} propertyQuestion={ele.propertyQuestion} allowedValues={ele.allowedValues} displayOrder={ele.displayorder} displayType={ele.propertyDisplayType}></Question>)
+            }
+          </div>
       }
       {/* <Paginator first={first} rows={rows} totalRecords={propQuestions.length} onPageChange={(e) => {
         setFirst(e.first);
