@@ -7,13 +7,14 @@ import { Dropdown } from 'primereact/dropdown';
 import Loader from './ProgressSpinner';
 import Execute from "./graphql/getQuestions";
 import { AutoQuery, ClgQuery, Check } from "./graphql/getValues";
-import Paginator
+import { Paginator } from "primereact/paginator";
 function App() {
   const [questions, setQuestions] = useState([]);
   const [selectedDomain, setSelectedDomain] = useState({});
   const [propQuestions, setpropQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(4);
   const domains = [
     { name: 'Colleges', code: 'CY' },
     { name: 'Automobiles', code: 'AY' }
@@ -47,17 +48,19 @@ function App() {
     setQuestions(orginalQuestions);
   }
 
+  console.log(questions);
+
   const call = () => {
     console.log(selectedDomain);
+    let lquestions = questions.filter(ques => ques.values.length !== 0);
+    setQuestions(lquestions);
     if (selectedDomain.name === "Colleges") {
-      ClgQuery(questions)
+      ClgQuery(lquestions)
     }
     else {
-      AutoQuery(questions)
+      AutoQuery(lquestions)
     }
   }
-
-  console.log(questions);
 
   return (
     <div className="App">
@@ -66,13 +69,15 @@ function App() {
       </h1>
       <Dropdown value={selectedDomain} options={domains} onChange={onDomainChange} optionLabel="name" placeholder="Select a Domain" />
       {
-        loading ? < Loader></Loader> : 
-        <Paginator first={basicFirst} rows={basicRows} totalRecords={120} rowsPerPageOptions={[10, 20, 30]} onPageChange={onBasicPageChange}>
-          {propQuestions.map((ele, id) => <Question update={(updatedQuestion) => Accomodate(updatedQuestion)} key={id} propertyName={ele.propertyName} propertyQuestion={ele.propertyQuestion} allowedValues={ele.allowedValues} displayOrder={ele.displayorder} displayType={ele.propertyDisplayType}></Question>)}
-        </Paginator>
-         
+        loading ? < Loader></Loader> :
+          propQuestions.map((ele, id) => <Question update={(updatedQuestion) => Accomodate(updatedQuestion)} key={id} propertyName={ele.propertyName} propertyQuestion={ele.propertyQuestion} allowedValues={ele.allowedValues} displayOrder={ele.displayorder} displayType={ele.propertyDisplayType}></Question>)
       }
-<button onClick={call}>Submit</button>
+      {/* <Paginator first={first} rows={rows} totalRecords={propQuestions.length} onPageChange={(e) => {
+        setFirst(e.first);
+        setRows(e.rows);
+      }}>
+      </Paginator> */}
+      <button onClick={call}>Submit</button>
     </div >
   );
 }
