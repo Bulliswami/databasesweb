@@ -1,8 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MultiSelect } from 'primereact/multiselect';
 import { JSJP } from "./asserts";
 
 const MultiSelectComponent = (props) => {
+    useEffect(() => {
+        if (props.rest) {
+            resetAll();
+            props.afterSet();
+        }
+    }, [props.rest]);
+
+    const resetAll = () => {
+        setselectedQuestion([]);
+    }
+
     let choices = JSJP(props.allowedValues.map(e => {
         return {
             name: e.allowedValue,

@@ -34,7 +34,7 @@ export async function AutoQuery(domain) {
         })
     })
         .then(r => r.json())
-        .then(data => console.log(data));
+
 }
 
 export async function ClgQuery(domain) {

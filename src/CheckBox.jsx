@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { JSJP } from "./asserts";
 import { Checkbox } from "primereact/checkbox";
 
@@ -13,7 +13,12 @@ const DynamicDemo = (props) => {
     }));
 
     const [selectedCategories, setSelectedCategories] = useState([]);
-
+    useEffect(() => {
+        if (props.rest) {
+            resetAll();
+            props.afterSet();
+        }
+    }, [props.rest]);
     let qno = props.displayOrder;
     let question = props.question;
     let property = props.propertyName;
@@ -24,6 +29,10 @@ const DynamicDemo = (props) => {
             delete ele['code'];
         })
         return selectedOpts;
+    }
+
+    const resetAll = () => {
+        setSelectedCategories([]);
     }
 
     const updateL = (e) => {
@@ -42,6 +51,7 @@ const DynamicDemo = (props) => {
     }
 
     return (
+
         <div className="card flex justify-content-center">
             <div className="flex flex-column gap-3">
                 {categories.map((category) => {

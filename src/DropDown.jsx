@@ -1,9 +1,19 @@
 
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Dropdown } from 'primereact/dropdown';
 import { JSJP } from "./asserts";
 
 const DropDown = (props) => {
+    useEffect(() => {
+        if (props.rest) {
+            resetAll();
+            props.afterSet();
+        }
+    }, [props.rest]);
+
+    const resetAll=()=>{
+        setSelectedCategory([]);
+    }
 
     const categories = JSJP(props.allowedValues.map(e => {
         return {
