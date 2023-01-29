@@ -32,12 +32,21 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
-.fle{
+.fle {
   display: flex;
   flex-wrap: wrap;
+}
+
+.link {
+  border: none;
+  background: transparent;
+  text-decoration: underline;
+  color: blue;
+  cursor: pointer;
 }

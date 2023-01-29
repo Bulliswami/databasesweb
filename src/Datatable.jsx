@@ -4,9 +4,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 
 const Table = ({ dataItems, field1, field2 }) => {
-    console.log(field1);
-    console.log(dataItems);
-    console.log(field2);
+
     return (
         <div>
             <div className="card">

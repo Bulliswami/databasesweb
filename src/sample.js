@@ -55,4 +55,3 @@ pt.forEach(ele => {
     })
 })
 
-console.log(pt);
