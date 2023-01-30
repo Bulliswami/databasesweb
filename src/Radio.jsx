@@ -4,7 +4,11 @@ import { JSJP } from "./asserts";
 import { RadioButton } from "primereact/radiobutton";
 
 const RadioButtonComponent = (props) => {
-    
+    const [selectedCategory, setSelectedCategory] = useState([]);
+    let qno = props.displayOrder;
+    let question = props.question;
+    let property = props.propertyName;
+
     useEffect(() => {
         if (props.rest) {
             resetAll();
@@ -12,9 +16,10 @@ const RadioButtonComponent = (props) => {
         }
     }, [props.rest]);
 
-    const resetAll=()=>{
+    const resetAll = () => {
         setSelectedCategory([]);
     }
+
 
     const categories = JSJP(props.allowedValues.map(e => {
         return {
@@ -24,7 +29,22 @@ const RadioButtonComponent = (props) => {
         }
     }));
 
-    const [selectedCategory, setSelectedCategory] = useState([]);
+
+    useEffect(() => {
+        let index = Object.keys(props.bookmark).findIndex((el) => el === props.propertyName);
+        console.log(props.bookmark);
+        console.log(props.propertyName);
+        console.log(index);
+        if (index !== -1 && props.bookmarkClicked) {
+            setSelectedCategory(categories.filter(e => e.code === props.bookmark[props.propertyName][0])[0]);
+        }
+        else{
+            setSelectedCategory([]);
+        }
+    }, [props.bookmark])
+
+
+
     const nameToVal = (selectedOpts) => {
         selectedOpts.forEach(ele => {
             ele['val'] = ele['code'];
@@ -32,9 +52,7 @@ const RadioButtonComponent = (props) => {
         })
         return selectedOpts;
     }
-    let qno = props.displayOrder;
-    let question = props.question;
-    let property = props.propertyName;
+
 
     const updateL = (e) => {
         setSelectedCategory(e.value)

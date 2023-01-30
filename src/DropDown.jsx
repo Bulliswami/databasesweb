@@ -1,9 +1,16 @@
 
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Dropdown } from 'primereact/dropdown';
 import { JSJP } from "./asserts";
 
 const DropDown = (props) => {
+    const [selectedCategory, setSelectedCategory] = useState([]);
+
+
+    let qno = props.displayOrder;
+    let question = props.question;
+    let property = props.propertyName;
+
     useEffect(() => {
         if (props.rest) {
             resetAll();
@@ -11,7 +18,7 @@ const DropDown = (props) => {
         }
     }, [props.rest]);
 
-    const resetAll=()=>{
+    const resetAll = () => {
         setSelectedCategory([]);
     }
 
@@ -23,7 +30,18 @@ const DropDown = (props) => {
         }
     }));
 
-    const [selectedCategory, setSelectedCategory] = useState([]);
+    useEffect(() => {
+
+        let index = Object.keys(props.bookmark).findIndex((el) => el === props.propertyName);
+        if (index !== -1 && props.bookmarkClicked) {
+            setSelectedCategory(categories.filter(e => e.code === props.bookmark[props.propertyName][0])[0]);
+        }
+        else{
+            setSelectedCategory([]);
+        }
+        
+    }, [props.bookmark, props.bookmarkClicked])
+
     const nameToVal = (selectedOpts) => {
         selectedOpts.forEach(ele => {
             ele['val'] = ele['code'];
@@ -31,9 +49,6 @@ const DropDown = (props) => {
         })
         return selectedOpts;
     }
-    let qno = props.displayOrder;
-    let question = props.question;
-    let property = props.propertyName;
 
     const updateL = (e) => {
         setSelectedCategory(e.value)
@@ -44,7 +59,6 @@ const DropDown = (props) => {
             values: nameToVal(JSJP(e.value))
         })
     }
-
 
     return (
         <div className="card flex justify-content-center dropdown-demo">

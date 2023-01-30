@@ -15,6 +15,7 @@ const Table = ({ dataItems, field1, field2 }) => {
             </div>
         </div>
     );
+    
 }
 
 export default Table;

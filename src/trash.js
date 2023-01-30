@@ -25,3 +25,15 @@
 
 // }
 // // {props.displayType === "multiselect" ? (<MultiSelectComponent displayOrder={props.displayOrder} question={props.propertyQuestion} allowedValues={props.allowedValues}></MultiSelectComponent>) : (<div></div>)}
+           // {
+            //     "publicOrPrivate": [
+            //         "1"
+            //     ],
+            //     "region": [
+            //         "1"
+            //     ],
+            //     "state": [
+            //         "1",
+            //         "2"
+            //     ]
+            // }

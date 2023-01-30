@@ -24,8 +24,51 @@
   color: white;
 }
 
+.mar,
+button {
+  margin: 2px !important;
+}
+
+.sec-2 {
+  position: absolute;
+  right: 0px;
+  top: 20px;
+}
+
+button {
+  display: block;
+  padding: 2px;
+  border: 2px solid blue;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #61dafb;
+}
+
+button:disabled {
+  cursor: not-allowed !important;
+  border: 2px solid red;
+  background-color: transparent;
+}
+
+.p-disabled:disabled {
+  cursor: not-allowed !important;
+}
+
 .App-link {
   color: #61dafb;
+}
+
+.it {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  cursor: pointer;
+}
+
+.sec-3 {
+  position: absolute;
+  top: 20px;
+  left: 0px;
 }
 
 @keyframes App-logo-spin {
@@ -41,6 +84,20 @@
 .fle {
   display: flex;
   flex-wrap: wrap;
+  margin: 25px;
+}
+
+.tab {
+  width: 500px;
+  margin: auto;
+  height: 450px !important;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+}
+
+.p-datatable-tbody {
+  font-size: 12px !important; 
 }
 
 .link {

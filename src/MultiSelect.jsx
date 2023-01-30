@@ -3,16 +3,7 @@ import { MultiSelect } from 'primereact/multiselect';
 import { JSJP } from "./asserts";
 
 const MultiSelectComponent = (props) => {
-    useEffect(() => {
-        if (props.rest) {
-            resetAll();
-            props.afterSet();
-        }
-    }, [props.rest]);
-
-    const resetAll = () => {
-        setselectedQuestion([]);
-    }
+    const [selectedQuestion, setselectedQuestion] = useState([]);
 
     let choices = JSJP(props.allowedValues.map(e => {
         return {
@@ -24,7 +15,37 @@ const MultiSelectComponent = (props) => {
     let qno = props.displayOrder;
     let question = props.question;
     let property = props.propertyName;
-    const [selectedQuestion, setselectedQuestion] = useState([]);
+
+    useEffect(() => {
+        if (props.rest) {
+            resetAll();
+            props.afterSet();
+        }
+    }, [props.rest]);
+
+    const resetAll = () => {
+        setselectedQuestion([]);
+    }
+
+    useEffect(() => {
+        let index = Object.keys(props.bookmark).findIndex((el) => el === props.propertyName);
+        if (index!==-1 && props.bookmarkClicked) {
+            setselectedQuestion(choices.filter(e => {
+                for (let i in props.bookmark[props.propertyName]) {
+                    let j = props.bookmark[props.propertyName][i]
+                    if (j === e.code) {
+                        return true
+                    }
+                }
+                return false
+
+            }))
+        }
+        else{
+            setselectedQuestion([]);
+        }
+    }, [props.bookmark])
+
 
     const nameToVal = (selectedOpts) => {
         selectedOpts.forEach(ele => {
