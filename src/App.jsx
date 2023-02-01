@@ -12,11 +12,10 @@ import AddBook from "./graphql/AddBook";
 import DeleteBook from "./graphql/deleteBook";
 import { InputText } from "primereact/inputtext";
 import "./App.css";
-import { Paginator } from "primereact/paginator";
+
 import Table from "./Datatable";
 
 function App() {
-
   const [questions, setQuestions] = useState([]);
   const [selectedDomain, setSelectedDomain] = useState({ name: "sd" });
   const [propQuestions, setpropQuestions] = useState([]);
@@ -24,8 +23,8 @@ function App() {
   const [loadingTable, setLoadingTable] = useState(null);
   const [reset, setReset] = useState(false);
   const [user, setUser] = useState('');
-  const [first, setFirst] = useState(0);
-  const [rows, setRows] = useState(4);
+
+
   const [data, setData] = useState([]);
   const [bookmarks, setBookmarks] = useState([]);
   const [bookmark, setBookmark] = useState({});
@@ -189,30 +188,27 @@ function App() {
         <div style={{ color: "blue", background: "red" }}>Bookmarks</div>
 
         {
-          bookmarks.map((ele, ind) => <div className='it'><i class="fa fa-bookmark-o"></i><i onClick={() => {
+          bookmarks.map((ele, ind) => <div className='it' key={ind}><i onClick={() => {
             DeleteBook(user, selectedDomain.name, ele.bname).then(() => {
               getBookmarks(user, selectedDomain.name).then(res => setBookmarks(res.data.getBookmarks))
             })
-          }} class="fa fa-trash"></i> <button key={ind} className='link' onClick={() => { FilterOutAndSelect(ele.bookmark) }}>{ele.bname}</button></div>)
+          }} className="fa fa-trash"></i> <button key={ind} className='link' onClick={() => { FilterOutAndSelect(ele.bookmark) }}>{ele.bname}</button></div>)
         }
       </div>
       {
         user !== '' && selectedDomain.name !== "sd" && (loadingquestions ? < Loader></Loader> :
           <div className='fle'>
             {
-              propQuestions.map((ele, id) => <Question reset={reset} afterSet={() => setReset(false)} bookmark={bookmark} bookmarkClicked={bookmarkClicked} update={(updatedQuestion) => Accomodate(updatedQuestion)} key={id} propertyName={ele.propertyName} propertyQuestion={ele.propertyQuestion} allowedValues={ele.allowedValues} displayOrder={ele.displayorder} displayType={ele.propertyDisplayType}></Question>)
+              propQuestions.map((ele, id) => <Question key={id} reset={reset} afterSet={() => setReset(false)} bookmark={bookmark} bookmarkClicked={bookmarkClicked} update={(updatedQuestion) => Accomodate(updatedQuestion)} propertyName={ele.propertyName} propertyQuestion={ele.propertyQuestion} allowedValues={ele.allowedValues} displayOrder={ele.displayorder} displayType={ele.propertyDisplayType}></Question>)
             }
           </div>)
       }
 
-      {/* <Paginator first={first} rows={rows} totalRecords={propQuestions.length} onPageChange={(e) => {
-        setFirst(e.first);
-        setRows(e.rows);
-      }}>
-      </Paginator> */}
 
-      {loadingTable !== null ? (loadingTable ? <Loader></Loader> : <div className='tab'> <Table showGridlines size="small" dataItems={data} field1={selectedDomain.name === "Colleges" ? "name" : "autoID"} field2="url"></Table></div>) : <></>}
-      <p>&copy;Designed by Bulli Swami Reddy Goluguri & Srujan Kumar Kondi</p>
+
+      {loadingTable !== null ? (loadingTable ? <Loader></Loader> : <><p className='para'>Results</p> <div className='tab'><Table showGridlines size="small" dataItems={data} field1={selectedDomain.name === "Colleges" ? "name" : "autoID"} field2="url"></Table></div></>) : <></>}
+
+      <p className='footer'>&copy;Designed by Bulli Swami Reddy Goluguri & Srujan Kumar Kondi</p>
     </div>
   );
 }

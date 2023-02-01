@@ -71,6 +71,17 @@ button:disabled {
   left: 6px;
 }
 
+.para{
+  color:red;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.footer {
+  background: black;
+  color: white;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -97,7 +108,7 @@ button:disabled {
 }
 
 .p-datatable-tbody {
-  font-size: 12px !important; 
+  font-size: 12px !important;
 }
 
 .link {
