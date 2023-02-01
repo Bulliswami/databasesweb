@@ -68,7 +68,7 @@ button:disabled {
 .sec-3 {
   position: absolute;
   top: 20px;
-  left: 0px;
+  left: 6px;
 }
 
 @keyframes App-logo-spin {

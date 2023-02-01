@@ -32,13 +32,10 @@ const RadioButtonComponent = (props) => {
 
     useEffect(() => {
         let index = Object.keys(props.bookmark).findIndex((el) => el === props.propertyName);
-        console.log(props.bookmark);
-        console.log(props.propertyName);
-        console.log(index);
         if (index !== -1 && props.bookmarkClicked) {
             setSelectedCategory(categories.filter(e => e.code === props.bookmark[props.propertyName][0])[0]);
         }
-        else{
+        else {
             setSelectedCategory([]);
         }
     }, [props.bookmark])
